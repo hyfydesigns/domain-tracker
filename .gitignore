@@ -10,6 +10,9 @@ out/
 .env.local
 .env*.local
 
+# Claude Code
+.claude/
+
 # misc
 .DS_Store
 *.pem
