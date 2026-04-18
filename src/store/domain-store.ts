@@ -61,7 +61,7 @@ const DEFAULT_SETTINGS: AppSettings = {
 
 // Settings and viewMode stay in localStorage — they're UI preferences, not data.
 const useSettingsStore = create<{ settings: AppSettings; viewMode: "list" | "grid" }>()(
-  persist(() => ({ settings: DEFAULT_SETTINGS, viewMode: "list" as const }), {
+  persist(() => ({ settings: DEFAULT_SETTINGS, viewMode: "list" as "list" | "grid" }), {
     name: "domain-tracker-prefs",
     storage: createJSONStorage(() => localStorage),
   })
