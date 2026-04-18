@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -194,7 +194,7 @@ function SortHeader({ label, sortKey, current, dir, onSort }: {
   );
 }
 
-export default function DomainsPage() {
+function DomainsContent() {
   const domains = useDomainStore((s) => s.domains);
   const viewMode = useDomainStore((s) => s.viewMode);
   const setViewMode = useDomainStore((s) => s.setViewMode);
@@ -544,5 +544,13 @@ export default function DomainsPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function DomainsPage() {
+  return (
+    <Suspense>
+      <DomainsContent />
+    </Suspense>
   );
 }
