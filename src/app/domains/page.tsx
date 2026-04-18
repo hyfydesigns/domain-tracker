@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   Search,
   LayoutGrid,
@@ -202,10 +203,16 @@ export default function DomainsPage() {
   const addRenewalRecord = useDomainStore((s) => s.addRenewalRecord);
   const addActivity = useDomainStore((s) => s.addActivity);
   const { toast } = useToast();
+  const searchParams = useSearchParams();
 
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [registrarFilter, setRegistrarFilter] = useState<string>("all");
+
+  useEffect(() => {
+    const status = searchParams.get("status");
+    if (status) setStatusFilter(status);
+  }, [searchParams]);
   const [sortKey, setSortKey] = useState<SortKey>("expiryDate");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
   const [deleteTarget, setDeleteTarget] = useState<Domain | null>(null);

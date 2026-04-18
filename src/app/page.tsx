@@ -86,6 +86,7 @@ export default function DashboardPage() {
       color: "text-primary",
       bg: "bg-primary/10",
       stagger: "stagger-1",
+      href: "/domains",
     },
     {
       title: "Expiring Soon",
@@ -94,6 +95,7 @@ export default function DashboardPage() {
       color: "text-amber-500",
       bg: "bg-amber-500/10",
       stagger: "stagger-2",
+      href: "/domains?status=expiring-soon",
     },
     {
       title: "Expired",
@@ -102,6 +104,7 @@ export default function DashboardPage() {
       color: "text-red-500",
       bg: "bg-red-500/10",
       stagger: "stagger-3",
+      href: "/domains?status=expired",
     },
     {
       title: "Annual Cost",
@@ -110,6 +113,7 @@ export default function DashboardPage() {
       color: "text-emerald-500",
       bg: "bg-emerald-500/10",
       stagger: "stagger-4",
+      href: "/domains",
     },
   ];
 
@@ -141,18 +145,20 @@ export default function DashboardPage() {
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {statCards.map(({ title, value, icon: Icon, color, bg, stagger }) => (
-          <Card key={title} className={cn("animate-in", stagger)}>
-            <CardContent className="p-5">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-sm text-muted-foreground font-medium">{title}</p>
-                <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", bg)}>
-                  <Icon className={cn("h-4 w-4", color)} />
+        {statCards.map(({ title, value, icon: Icon, color, bg, stagger, href }) => (
+          <Link key={title} href={href}>
+            <Card className={cn("animate-in cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-md", stagger)}>
+              <CardContent className="p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-sm text-muted-foreground font-medium">{title}</p>
+                  <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", bg)}>
+                    <Icon className={cn("h-4 w-4", color)} />
+                  </div>
                 </div>
-              </div>
-              <p className={cn("text-2xl font-bold tracking-tight", color)}>{value}</p>
-            </CardContent>
-          </Card>
+                <p className={cn("text-2xl font-bold tracking-tight", color)}>{value}</p>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
 
